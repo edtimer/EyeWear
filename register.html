@@ -49,102 +49,92 @@
                               <a href="index.html"><img src="images/logo.png" alt="#" width= 120px; height= 120px;/></a>
                            </div>
                         </div>
+                        
                      </div>
                   </div>
+                  
                   <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
                      <nav class="navigation navbar navbar-expand-md navbar-dark ">
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                         </button>
+                        
                         <div class="collapse navbar-collapse" id="navbarsExample04">
                            <ul class="navbar-nav mr-auto">
-                              <li class="nav-item ">
-                                 <a class="nav-link" href="index.html">Home</a>
-                              </li>
-                              <li class="nav-item">
-                                 <a class="nav-link" href="about.html">About</a>
-                              </li>
-                              <li class="nav-item">
-                                 <a class="nav-link" href="glasses.html">Our Glasses</a>
-                              </li>
-                              <li class="nav-item">
-                                 <a class="nav-link" href="shop.html">Shop</a>
-                              </li>
-                              <li class="nav-item">
-                                 <a class="nav-link" href="contact.html">Contact Us</a>
-                              </li>
-                              <li class="nav-item">
-                                 <a class="nav-link" href="update.html">Update </a>
-                              </li>
-                              <li class="nav-item active">
-                                 <a class="nav-link" href="delete.html">Delete </a>
-                              </li>
+                              
                               <li class="nav-item d_none login_btn">
-                                 <a class="nav-link" href="login.html">Logout</a>
+                                 <a class="nav-link" href="login.html">Login</a>
                               </li>
                               
                               
                            </ul>
                         </div>
                      </nav>
+                     
                   </div>
+                  <div class="container">
+                    <div class="row">
+                       <div class="col-md-10 offset-md-1">
+                          <div class="titlepage">
+                             <h2>Register</h2>
+                             <p>From here you can create a new account   </p>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
                </div>
             </div>
          </div>
       </header>
       <!-- end header inner -->
       <!-- end header -->
-      <br>
-      <div class="container">
-      <div class="row">
-         <div class="col-md-10 offset-md-1">
-            <div class="titlepage">
-               <h2>Delete Order</h2>
-               <p>From here you can delete your order   </p>
+<br>
+<body style="text-align: center;">
+
+    <div class="newForm">
+        <h1></h1>
+        <form onsubmit="return false;">
+            <div class="form-group">
+                <label for="" class="newLabel">First Name</label>
+                <input class="newLabel2" type="text" name="fName">
             </div>
-         </div>
-      </div>
-   </div>
-         <br>
-         <body style="text-align: center;" >
-         <form class="newForm" id="CustomProduct" >
-            <br>
-           
-            <label class="newLabel">Order ID: <p class="smallNote">*to delete the order*</p></label>
-            <br>
-            <input class="newLabel2" type="text" name="orderId" placeholder="Order ID" required>
-            <br><br>
-            <button class="read_more" type="submit">Delete Order</button>
-            
-            <br><br>
-        </form></body>
-        <br><br>
-      <!--  footer -->
-      <footer>
-         <div class="footer">
-            <div class="container">
-               <div class="row">
-                  <div class="col-md-8 offset-md-2">
-                     <ul class="location_icon">
-                        <li><a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i></a><br> Location</li>
-                        <li><a href="#"><i class="fa fa-phone" aria-hidden="true"></i></a><br> +966544984525</li>
-                        <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a><br> EyeWearCo@gmail.com</li>
-                     </ul>
-                  </div>
-               </div>
+            <div class="form-group">
+                <label for="" class="newLabel">Last Name</label>
+                <input class="newLabel2" type="text" name="lName">
             </div>
-            <div class="copyright">
-               <div class="container">
-                  <div class="row">
-                     <div class="col-md-12">
-                        <p>© 2022 All Rights Reserved. Design by Web Techno group</p>
-                     </div>
-                  </div>
-               </div>
+            <div class="form-group">
+                <label for="" class="newLabel">User Name</label>
+                <input class="newLabel2" type="text" name="userName">
             </div>
-         </div>
-      </footer>
-      <!-- end footer -->
+            <div class="form-group">
+                <label for="" class="newLabel">Email</label>
+                <input class="newLabel2" type="email" name="email">
+            </div>
+            <div class="form-group">
+                <label for="" class="newLabel">Password</label>
+                <input class="newLabel2" type="password" name="pwd">
+            </div>
+            <div class="form-group">
+                <label for="" class="newLabel">Repeat Password</label>
+                <input class="newLabel2" type="password" name="rPwd">
+            </div>
+            <div class="form-group">
+                <!-- <label for=""></label> -->
+                <input type="hidden" id="crud_req" name="crud_req" value="register">
+            </div>
+            <input type="hidden" name="submit" value="submit">
+            <div class="form-group">
+
+                <input class="read_more" type="submit" name="submit" value="Register">
+            </div>
+        </form>
+    </div>
+    <script src="register.js" defer></script>
+</body>
+<br> <br>
+
+
+<!-- end footer -->
       <!-- Javascript files-->
       <script src="js/jquery.min.js"></script>
       <script src="js/popper.min.js"></script>
@@ -153,5 +143,6 @@
       <!-- sidebar -->
       <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
       <script src="js/custom.js"></script>
-   </body>
+   
+
 </html>
