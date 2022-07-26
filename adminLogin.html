@@ -8,7 +8,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
-      <title>EyeWear</title>
+      <title>EyeWear - Admin</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
@@ -63,9 +63,8 @@
                            <ul class="navbar-nav mr-auto">
                               
                               <li class="nav-item d_none login_btn">
-                                 <a class="nav-link" href="login.html">Login</a>
+                                 <a class="nav-link" href="login.html">User?</a>
                               </li>
-                              
                               
                            </ul>
                         </div>
@@ -76,8 +75,8 @@
                     <div class="row">
                        <div class="col-md-10 offset-md-1">
                           <div class="titlepage">
-                             <h2>Register</h2>
-                             <p>From here you can create a new account   </p>
+                             <h2>Admin Login</h2>
+                             <p>From here you can login as an admin   </p>
                           </div>
                        </div>
                     </div>
@@ -88,48 +87,36 @@
       </header>
       <!-- end header inner -->
       <!-- end header -->
-<br>
+      <br>
 <body style="text-align: center;">
 
     <div class="newForm">
         <h1></h1>
         <form onsubmit="return false;">
-            <div class="form-group">
-                <label for="" class="newLabel">Name</label>
-                <input class="newLabel2" type="text" name="name">
-            </div>
+
             <div class="form-group">
                 <label for="" class="newLabel">Email</label>
-                <input class="newLabel2" type="email" name="email">
+                <input class="newLabel2" type="text" name="email">
             </div>
+
             <div class="form-group">
                 <label for="" class="newLabel">Password</label>
                 <input class="newLabel2" type="password" name="pass">
             </div>
-            <div class="form-group">
-                <label for="" class="newLabel">Repeat Password</label>
-                <input class="newLabel2" type="password" name="pass">
-            </div>
-            <div class="form-group">
-                <label for="" class="newLabel">Avatar link</label>
-                <input class="newLabel2" type="text" name="avatar">
-            </div>
+
             <div class="form-group">
                 <!-- <label for=""></label> -->
-                <input type="hidden" id="crud_req" name="crud_req" value="register">
+                <input type="hidden" name="crud_req" value="login">
             </div>
-            <input type="hidden" name="submit" value="submit">
             <div class="form-group">
 
-                <input class="read_more" type="submit" name="submit" value="Register">
+                <button class="read_more" type="submit" name="submit">Login</button>
             </div>
         </form>
     </div>
-    <script src="register.js" defer></script>
+    <script src="login.js" defer></script>
 </body>
-<br> <br>
-
-
+<br><br>
 <!-- end footer -->
       <!-- Javascript files-->
       <script src="js/jquery.min.js"></script>
@@ -140,5 +127,8 @@
       <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
       <script src="js/custom.js"></script>
    
+
+
+
 
 </html>
