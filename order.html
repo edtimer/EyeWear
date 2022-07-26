@@ -106,36 +106,57 @@
     </div>
     <br>
     <body style="text-align: center;">
-        <form class="newForm" id="CustomProduct">
+        <form class="newForm" id="addorder">
             <br>
-            <label class="newLabel">ID:</label>
+            <label class="newLabel">Your ID:</label>
             <br>
-            <input class="newLabel2" type="number" name="id" placeholder="Product ID - the number only" required>
+            <input class="newLabel2" type="number" name="userId" placeholder="Your ID - the number only" required>
             <br><br>
-            <label class="newLabel">Full Name:</label>
+            <label class="newLabel">Product ID:</label>
             <br>
-            <input class="newLabel2" type="text" name="buyerName" placeholder="Your name" required>
+            <input class="newLabel2" type="number" name="sunglassId" placeholder="Product ID - the number only" required>
             <br><br>
-            <label class="newLabel">Contact Num:</label>
+            <label class="newLabel">Quantity:</label>
             <br>
-            <input class="newLabel2" type="text" name="contactnum" placeholder="Your number" required>
+            <input class="newLabel2" type="number" name="quan" placeholder="number of sunglasses" required>
             <br><br>
             <label class="newLabel">Price Range (RM):</label>
             <br>
-            <input class="newLabel2" type="text" name="priceRange" placeholder="The price range you are comfortable with" required>
+            <input class="newLabel2" type="text" name="totalPrice" placeholder="The price you are comfortable with" required>
             <br><br>
             <label class="newLabel">Product Description:</label>
             <br>
             <input class="newLabel2" type="text" name="description" placeholder="Describe your needs" required>
             <br><br>
-            <label class="newLabel">Order ID: <p class="smallNote">*in case you need to update or delete your order*</p></label>
-            <br>
-            <input class="newLabel2" type="text" name="orderId" placeholder="Create a unique ID to your order" required>
-            <br><br>
             <button class="read_more" type="submit">Add an order</button>
             <button class="read_more" type="reset">Reset</button>
             <br><br>
         </form>
+        <script>
+            $('#addorder').submit(function (event) {
+                event.preventDefault();
+                var formData = $(this).serialize();
+                console.log(formData); // check using console to make sure all the form data values are correctly serialized
+    
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost/EyeWear/api/order",
+                    data: formData,
+                    dataType: "json",
+    
+                    success: function (data, status, xhr) {
+                        if (data.rowcount > 0) {
+                            alert(data.status);
+                        } else {
+                            alert("fail" + data.message);
+                        }
+                    },
+                    error: function (xhr, resp, text) {
+                        alert("error " + xhr + ", " + resp + ", " + text);
+                    },
+                });
+            });
+        </script>
     </body>
     <br><br>
     <!-- end Our  Glasses section -->

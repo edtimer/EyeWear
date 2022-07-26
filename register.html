@@ -93,7 +93,7 @@
 
     <div class="newForm">
         <h1></h1>
-        <form onsubmit="return false;">
+        <form id="addUser">
             <div class="form-group">
                 <label for="" class="newLabel">Name</label>
                 <input class="newLabel2" type="text" name="name">
@@ -131,6 +131,31 @@
 
 
 <!-- end footer -->
+<script>
+   $('#addUser').submit(function (event) {
+       event.preventDefault();
+       var formData = $(this).serialize();
+       console.log(formData); // check using console to make sure all the form data values are correctly serialized
+
+       $.ajax({
+           type: "POST",
+           url: "http://localhost/EyeWear/api/user",
+           data: formData,
+           dataType: "json",
+
+           success: function (data, status, xhr) {
+               if (data.rowcount > 0) {
+                   alert(data.status);
+               } else {
+                   alert("fail" + data.message);
+               }
+           },
+           error: function (xhr, resp, text) {
+               alert("error " + xhr + ", " + resp + ", " + text);
+           },
+       });
+   });
+</script>
       <!-- Javascript files-->
       <script src="js/jquery.min.js"></script>
       <script src="js/popper.min.js"></script>

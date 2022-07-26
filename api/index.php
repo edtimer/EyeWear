@@ -44,6 +44,7 @@ $app->get('/records', function (Request $req, Response $res) {
     }
 });
 
+// Post user
 $app->post('/user', function (Request $req, Response $res, array $args) {
     $request = (array) $req->getParsedBody();
     $name = $request['name'];
@@ -127,17 +128,18 @@ $app->post('/sunglass', function (Request $req, Response $res, array $args) {
         return $res->withHeader('Content-Type', 'application/json')->withStatus(500);
     }
 });
-
+//post order done
 $app->post('/order', function (Request $req, Response $res, array $args) {
     $request = (array) $req->getParsedBody();
     $userId = $request['userId'];
     $sunglassId = $request["sunglassId"];
     $quan = $request["quan"];
     $totalPrice = $request['totalPrice'];
+    $description = $request['description'];
     $status = $request['status'];
 
     try {
-        $sql = 'INSERT INTO orders(userId, sunglassId, quan, totalPrice, status) VALUES (:userId, :sunglassId, :quan, :totalPrice, :status)';
+        $sql = 'INSERT INTO orders(userId, sunglassId, quan, totalPrice, description, status) VALUES (:userId, :sunglassId, :quan, :totalPrice, :description, :status)';
 
         $db = new db();
         $con = $db->connect();
@@ -147,6 +149,7 @@ $app->post('/order', function (Request $req, Response $res, array $args) {
         $stmt->bindValue(':sunglassId', $sunglassId);
         $stmt->bindValue(':quan', $quan);
         $stmt->bindValue(':totalPrice', $totalPrice);
+        $stmt->bindValue(':description', $description);
         $stmt->bindValue(':status', $status);
         $result = $stmt->execute();
         $count = $stmt->rowCount();

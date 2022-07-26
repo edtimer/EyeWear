@@ -48,6 +48,7 @@ CREATE TABLE `orders` (
   `sunglassId` int(11) NOT NULL,
   `quan` int(11) NOT NULL,
   `totalPrice` double NOT NULL,
+  `description` varchar(250) NOT NULL,
   `status` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -55,8 +56,8 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `userId`, `sunglassId`, `quan`, `totalPrice`, `status`) VALUES
-(1, 0, 0, 2, 451.5, 'new');
+INSERT INTO `orders` (`id`, `userId`, `sunglassId`, `quan`, `totalPrice`, `description`, `status`) VALUES
+(1, 0, 0, 2, 451.5, 'As it is', 'new');
 
 -- --------------------------------------------------------
 
