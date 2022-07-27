@@ -103,7 +103,7 @@
     <br>
 
     <body style="text-align: center;">
-        <form class="newForm" id="CustomProduct">
+        <form class="newForm" id="updateglass">
             <br>
             <label class="newLabel">ID:</label>
             <br>
@@ -166,6 +166,38 @@
     </footer>
     <!-- end footer -->
     <!-- Javascript files-->
+    <script>
+        $('#updateglass').submit(function (event) {
+
+            //logs
+            event.preventDefault();
+            var formData = $(this).serialize();
+            console.log(formData); // check using console to make sure all the form data values are correctly serialized
+            let z = formData.split("&")[0];
+            console.log(z);
+            let link = "http://localhost/EyeWear/api/sunglass/" + z.split('=')[1];
+            console.log(link);
+            //put ajax
+            $.ajax({
+                type: "PUT",
+                url: link,
+                data: formData,
+                dataType: "json",
+
+
+                success: function (data, status, xhr) {
+                    if (data.rowcount > 0) {
+                        alert(data.status);
+                    } else {
+                        alert("fail " + data.message);
+                    }
+                },
+                error: function (xhr, resp, text) {
+                    alert("error " + xhr + ", " + resp + ", " + text);
+                },
+            });
+        });
+    </script>
     <script src="js/jquery.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>

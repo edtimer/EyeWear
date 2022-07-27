@@ -233,38 +233,40 @@ $app->delete('/sunglass/{id}', function (Request $req, Response $res, array $arg
     }
 });
 
-$app->post('/bid', function (Request $req, Response $res, array $args) {
-    $request = (array) $req->getParsedBody();
-    $bidderid = $request['bidderid'];
-    $biddername = $request["biddername"];
-    $contactnum = $request["contactnum"];
-    $mybidprice = $request['mybidprice'];
-    $itemid = $request['itemid'];
-    $descrip = $request["descrip"];
-    $category = $request["category"];
-    $startprice = $request['startprice'];
+
+//put order - Update
+$app->put('/order/{id}', function (Request $req, Response $res, array $args) {
+    $id = $args['id'];
 
     try {
-        $sql = 'INSERT INTO bids(bidderid, biddername, contactnum, mybidprice, itemid, descrip, category, startprice) VALUES (:bidderid, :biddername, :contactnum, :mybidprice,:itemid, :descrip, :category, :startPrice)';
+        $request =
+            (array) $req->getParsedBody();
+        $userId = $request["userId"];
+        $sunglassId = $request["sunglassId"];
+        $quan = $request['quan'];
+        $totalPrice = $request['totalPrice'];
+        $description = $request["description"];
+        
+
+        $sql = 'UPDATE orders SET userId=:userId,sunglassId=:sunglassId, quan=:quan,totalPrice=:totalPrice,description=:description WHERE id = "' . $id . '"';
 
         $db = new db();
         $con = $db->connect();
 
         $stmt = $con->prepare($sql);
-        $stmt->bindValue(':bidderid', $bidderid);
-        $stmt->bindValue(':biddername', $biddername);
-        $stmt->bindValue(':contactnum', $contactnum);
-        $stmt->bindValue(':mybidprice', $mybidprice);
-        $stmt->bindValue(':itemid', $itemid);
-        $stmt->bindValue(':descrip', $descrip);
-        $stmt->bindValue(':category', $category);
-        $stmt->bindValue(':startPrice', $startprice);
+        $stmt->bindValue(':userId', $userId);
+        $stmt->bindValue(':sunglassId', $sunglassId);
+        $stmt->bindValue(':quan', $quan);
+        $stmt->bindValue(':totalPrice', $totalPrice);
+        $stmt->bindValue(':description', $description);
+        
         $result = $stmt->execute();
         $count = $stmt->rowCount();
+
         $db = null;
 
         $result = array(
-            "status" => "new bid inserted successfully",
+            "status" => "Order updated successfully",
             "rowcount" => $count
         );
         $res->getBody()->write(json_encode($result));
@@ -280,40 +282,43 @@ $app->post('/bid', function (Request $req, Response $res, array $args) {
     }
 });
 
-$app->put('/bid/{bider_id}', function (Request $req, Response $res, array $args) {
-    $id = $args['bider_id'];
+//put sunglass - Update
+$app->put('/sunglass/{id}', function (Request $req, Response $res, array $args) {
+    $id = $args['id'];
 
     try {
         $request =
             (array) $req->getParsedBody();
-        $biddername = $request["biddername"];
-        $contactnum = $request["contactnum"];
-        $mybidprice = $request['mybidprice'];
-        $itemid = $request['itemid'];
-        $descrip = $request["descrip"];
-        $category = $request["category"];
-        $startprice = $request['startprice'];
+        $id = $request["id"];
+        $name = $request["name"];
+        $brand = $request['brand'];
+        $description = $request['description'];
+        $rates = $request["rates"];
+        $price = $request['price'];
+        $img = $request["img"];
+        
 
-        $sql = 'UPDATE bids SET biddername=:biddername,contactnum=:contactnum, mybidprice=:mybidprice,itemid=:itemid,descrip=:descrip,category=:category, startprice=:startprice WHERE bidderid = "' . $id . '"';
+        $sql = 'UPDATE orders SET id=:id,name=:name, brand=:brand,description=:description,rates=:rates,price=:price,img=:img WHERE id = "' . $id . '"';
 
         $db = new db();
         $con = $db->connect();
 
         $stmt = $con->prepare($sql);
-        $stmt->bindValue(':biddername', $biddername);
-        $stmt->bindValue(':contactnum', $contactnum);
-        $stmt->bindValue(':mybidprice', $mybidprice);
-        $stmt->bindValue(':itemid', $itemid);
-        $stmt->bindValue(':descrip', $descrip);
-        $stmt->bindValue(':category', $category);
-        $stmt->bindValue(':startprice', $startprice);
+        $stmt->bindValue(':id', $id);
+        $stmt->bindValue(':name', $name);
+        $stmt->bindValue(':brand', $brand);
+        $stmt->bindValue(':description', $description);
+        $stmt->bindValue(':rates', $rates);
+        $stmt->bindValue(':price', $price);
+        $stmt->bindValue(':img', $img);
+        
         $result = $stmt->execute();
         $count = $stmt->rowCount();
 
         $db = null;
 
         $result = array(
-            "status" => "a bid updated successfully",
+            "status" => "Order updated successfully",
             "rowcount" => $count
         );
         $res->getBody()->write(json_encode($result));
