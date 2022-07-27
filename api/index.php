@@ -202,6 +202,36 @@ $app->delete('/order/{id}', function (Request $req, Response $res, array $args) 
         return $res->withHeader('Content-Type', 'application/json')->withStatus(500);
     }
 });
+//delete Sunglass
+$app->delete('/sunglass/{id}', function (Request $req, Response $res, array $args) {
+    $id = $args['id'];
+    $sql = 'delete from sunglasses where id = "' . $id . '"';
+    $results = false;
+
+    try {
+        $db = new db();
+        $con = $db->connect();
+
+        $stmt = $con->prepare($sql);
+        if ($stmt->execute()) {
+            $results = array(
+                "status" => "Sunglass deleted successfully",
+            );
+        }
+
+        $db = null;
+        $res->getBody()->write(json_encode($results));
+
+        return $res->withHeader('Content-Type', 'application/json')->withStatus(200);
+    } catch (PDOException $e) {
+        $error = array(
+            "message" => $e->getMessage()
+        );
+        $res->getBody()->write(json_encode($error));
+
+        return $res->withHeader('Content-Type', 'application/json')->withStatus(500);
+    }
+});
 
 $app->post('/bid', function (Request $req, Response $res, array $args) {
     $request = (array) $req->getParsedBody();
