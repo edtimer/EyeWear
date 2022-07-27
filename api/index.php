@@ -298,7 +298,7 @@ $app->put('/sunglass/{id}', function (Request $req, Response $res, array $args) 
         $img = $request["img"];
         
 
-        $sql = 'UPDATE orders SET id=:id,name=:name, brand=:brand,description=:description,rates=:rates,price=:price,img=:img WHERE id = "' . $id . '"';
+        $sql = 'UPDATE sunglasses SET id=:id,name=:name, brand=:brand,description=:description,rates=:rates,price=:price,img=:img WHERE id = "' . $id . '"';
 
         $db = new db();
         $con = $db->connect();
