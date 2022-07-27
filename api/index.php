@@ -17,7 +17,7 @@ $app->get('/', function (Request $request, Response $response, array $args) {
     return $response;
 });
 
-// friend routes
+// Get
 $app->get('/records', function (Request $req, Response $res) {
     $table = $_GET['table'];
     $where = $_GET["where"];
@@ -86,6 +86,7 @@ $app->post('/user', function (Request $req, Response $res, array $args) {
     }
 });
 
+//Post sunglass
 $app->post('/sunglass', function (Request $req, Response $res, array $args) {
     $request = (array) $req->getParsedBody();
     $name = $request['name'];
@@ -171,10 +172,10 @@ $app->post('/order', function (Request $req, Response $res, array $args) {
         return $res->withHeader('Content-Type', 'application/json')->withStatus(500);
     }
 });
-
-$app->delete('/bid/{bider_id}', function (Request $req, Response $res, array $args) {
-    $id = $args['bider_id'];
-    $sql = 'delete from bids where bidderid = "' . $id . '"';
+//delete order
+$app->delete('/order/{id}', function (Request $req, Response $res, array $args) {
+    $id = $args['id'];
+    $sql = 'delete from orders where id = "' . $id . '"';
     $results = false;
 
     try {
@@ -184,7 +185,7 @@ $app->delete('/bid/{bider_id}', function (Request $req, Response $res, array $ar
         $stmt = $con->prepare($sql);
         if ($stmt->execute()) {
             $results = array(
-                "status" => "a bid deleted successfully",
+                "status" => "Order deleted successfully",
             );
         }
 

@@ -103,7 +103,7 @@
     <br>
 
     <body style="text-align: center;">
-        <form class="newForm" id="CustomProduct">
+        <form class="newForm" id="addproduct">
             <br>
             <label class="newLabel">ID:</label>
             <br>
@@ -165,6 +165,31 @@
         </div>
     </footer>
     <!-- end footer -->
+    <script>
+        $('#addproduct').submit(function (event) {
+            event.preventDefault();
+            var formData = $(this).serialize();
+            console.log(formData); // check using console to make sure all the form data values are correctly serialized
+
+            $.ajax({
+                type: "POST",
+                url: "http://localhost/EyeWear/api/sunglass",
+                data: formData,
+                dataType: "json",
+
+                success: function (data, status, xhr) {
+                    if (data.rowcount > 0) {
+                        alert(data.status);
+                    } else {
+                        alert("fail" + data.message);
+                    }
+                },
+                error: function (xhr, resp, text) {
+                    alert("error " + xhr + ", " + resp + ", " + text);
+                },
+            });
+        });
+    </script>
     <!-- Javascript files-->
     <script src="js/jquery.min.js"></script>
     <script src="js/popper.min.js"></script>
