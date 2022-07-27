@@ -91,13 +91,13 @@ $app->post('/sunglass', function (Request $req, Response $res, array $args) {
     $request = (array) $req->getParsedBody();
     $name = $request['name'];
     $brand = $request["brand"];
-    $desc = $request["desc"];
+    $description = $request["description"];
     $rates = $request['rates'];
     $price = $request['price'];
     $img = $request['img'];
 
     try {
-        $sql = 'INSERT INTO sunglasses(name, brand, description, rates, price, img) VALUES (:name, :brand, :desc, :rates, :price, :img)';
+        $sql = 'INSERT INTO sunglasses(name, brand, description, rates, price, img) VALUES (:name, :brand, :description, :rates, :price, :img)';
 
         $db = new db();
         $con = $db->connect();
@@ -105,7 +105,7 @@ $app->post('/sunglass', function (Request $req, Response $res, array $args) {
         $stmt = $con->prepare($sql);
         $stmt->bindValue(':name', $name);
         $stmt->bindValue(':brand', $brand);
-        $stmt->bindValue(':desc', $desc);
+        $stmt->bindValue(':description', $description);
         $stmt->bindValue(':rates', $rates);
         $stmt->bindValue(':price', $price);
         $stmt->bindValue(':img', $img);
