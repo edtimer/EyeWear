@@ -14,7 +14,7 @@ class db
     // Connect
     public function connect()
     {
-        $mysql_connect_str = "mysql:host=$this->host;dbname=$this->dbname,port=$this->port";
+        $mysql_connect_str = "mysql:host=$this->host;dbname=$this->dbname;port=$this->port";
         $dbConnection = new PDO($mysql_connect_str, $this->user, $this->password);
         $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $dbConnection;
