@@ -1,6 +1,8 @@
 <?php 
 include ("index.html");
-include ("api/index.php");
+
+require __DIR__ . 'api/config/db.php';
+require __DIR__ . 'api/index.php';
 
 //Get Heroku ClearDB connection information
 $cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
