@@ -1,5 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+<script>
+    let user = sessionStorage.getItem("username");
+    let isadmin = sessionStorage.getItem("isAdmin");
+    console.log(user, isadmin);
+    if (user == null) {
+        window.location.href = 'login.html';
+    } else if (isadmin === 1) {
+        window.location.href = 'adminHome.html';
+    }
+</script>
+
 <head>
     <!-- basic -->
     <meta charset="utf-8">
@@ -30,6 +41,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 </head>
 <!-- body -->
+
 <body class="main-layout position_head">
     <!-- loader  -->
     <div class="loader_bg">
@@ -42,20 +54,21 @@
         <div class="header">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+                    <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col logo_section">
                         <div class="full">
                             <div class="center-desk">
                                 <div class="logo">
-                                    <a href="index.html"><img src="images/logo.png" alt="#" width=120px; height=120px;/></a>
+                                    <a href="index.html"><img src="images/logo.png" alt="#" width=120px; height=120px; /></a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
-                        <nav class="navigation navbar navbar-expand-md navbar-dark ">
+                    <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11">
+                        <nav style="width: 100% !important;" class="navigation navbar navbar-expand-md navbar-dark">
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                         </button>
+                            <p style="padding-right: 10%;" id="user">Welcome User</p>
                             <div class="collapse navbar-collapse" id="navbarsExample04">
                                 <ul class="navbar-nav mr-auto">
                                     <li class="nav-item ">
@@ -80,7 +93,7 @@
                                         <a class="nav-link" href="delete.html">Delete </a>
                                     </li>
                                     <li class="nav-item d_none login_btn">
-                                        <a class="nav-link" href="login.html">Logout</a>
+                                        <a class="nav-link" href="login.html?log=off">Logout</a>
                                     </li>
 
                                 </ul>
@@ -105,58 +118,31 @@
         </div>
     </div>
     <br>
+
     <body style="text-align: center;">
         <form class="newForm" id="addorder">
             <br>
-            <label class="newLabel">Your ID:</label>
-            <br>
-            <input class="newLabel2" type="number" name="userId" placeholder="Your ID - the number only" required>
-            <br><br>
             <label class="newLabel">Product ID:</label>
             <br>
-            <input class="newLabel2" type="number" name="sunglassId" placeholder="Product ID - the number only" required>
+            <select class="newLabel2" name="sunId" id="sunId"></select>
             <br><br>
+            <p id="name">Product Name: </p>
             <label class="newLabel">Quantity:</label>
             <br>
-            <input class="newLabel2" type="number" name="quan" placeholder="number of sunglasses" required>
+            <input class="newLabel2" min="0" type="number" name="quan" placeholder="number of sunglasses" required>
             <br><br>
-            <label class="newLabel">Price Range (RM):</label>
+            <label class="newLabel">Address:</label>
             <br>
-            <input class="newLabel2" type="text" name="totalPrice" placeholder="The price you are comfortable with" required>
+            <input class="newLabel2" type="text" name="address" placeholder="The price you are comfortable with" required>
             <br><br>
-            <label class="newLabel">Product Description:</label>
+            <label class="newLabel">Notes:</label>
             <br>
-            <input class="newLabel2" type="text" name="description" placeholder="Describe your needs" required>
+            <input class="newLabel2" type="text" name="notes" placeholder="Describe your needs" required>
             <br><br>
             <button class="read_more" type="submit">Add an order</button>
             <button class="read_more" type="reset">Reset</button>
             <br><br>
         </form>
-        <script>
-            $('#addorder').submit(function (event) {
-                event.preventDefault();
-                var formData = $(this).serialize();
-                console.log(formData); // check using console to make sure all the form data values are correctly serialized
-    
-                $.ajax({
-                    type: "POST",
-                    url: "http://localhost/EyeWear/api/order",
-                    data: formData,
-                    dataType: "json",
-    
-                    success: function (data, status, xhr) {
-                        if (data.rowcount > 0) {
-                            alert(data.status);
-                        } else {
-                            alert("fail" + data.message);
-                        }
-                    },
-                    error: function (xhr, resp, text) {
-                        alert("error " + xhr + ", " + resp + ", " + text);
-                    },
-                });
-            });
-        </script>
     </body>
     <br><br>
     <!-- end Our  Glasses section -->
@@ -186,13 +172,77 @@
         </div>
     </footer>
     <!-- end footer -->
-    <!-- Javascript files-->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/jquery-3.0.0.min.js"></script>
-    <!-- sidebar -->
-    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="js/custom.js"></script>
 </body>
+
+<!-- Javascript files-->
+<script src="js/jquery.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/jquery-3.0.0.min.js"></script>
+<!-- sidebar -->
+<script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="js/custom.js"></script>
+
+<script>
+    $('#user').text('Welcome ' + user)
+    let userId = sessionStorage.getItem("userId");
+
+    let glasses = []
+    let formData = {
+        table: "sunglasses",
+        where: "",
+    };
+    let form = new URLSearchParams(formData).toString()
+    console.log(form)
+    $.ajax({
+        type: "GET",
+        url: "http://localhost/EyeWear/api/records",
+        data: form,
+        dataType: "json",
+
+        success: function(data, status, xhr) {
+            let options = data.map((x, i) => {
+                let item = document.createElement("option");
+                item.innerHTML = x['id'];
+                return item;
+            });
+            glasses = data
+            $('#name').append(data[0]['name'])
+            $('#sunId').append(options);
+            console.log(data);
+        },
+        error: function(xhr, resp, text) {
+            alert("error " + xhr.error + ", " + resp + ", " + text);
+        },
+    });
+
+    $('#sunId').change(function() {
+        $('#name').text("Product Name : " + glasses[$('#sunId').val()]['name'])
+    })
+
+    $('#addorder').submit(function(event) {
+        event.preventDefault();
+        var formData = $(this).serialize() + "&userId=" + userId + "&price=" + glasses[$('#sunId').val()]['price'];
+        console.log(formData); // check using console to make sure all the form data values are correctly serialized
+
+        $.ajax({
+            type: "POST",
+            url: "http://localhost/EyeWear/api/order",
+            data: formData,
+            dataType: "json",
+
+            success: function(data, status, xhr) {
+                if (data.rowcount > 0) {
+                    alert(data.status);
+                } else {
+                    alert("fail" + data.message);
+                }
+            },
+            error: function(xhr, resp, text) {
+                alert("error " + xhr + ", " + resp + ", " + text);
+            },
+        });
+    });
+</script>
+
 </html>

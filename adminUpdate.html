@@ -1,5 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+<script>
+    let user = sessionStorage.getItem("username");
+    let isadmin = sessionStorage.getItem("isAdmin");
+    console.log(user, isadmin);
+    if (user == null) {
+        window.location.href = 'login.html';
+    } else if (isadmin === 0) {
+        window.location.href = 'index.html';
+    }
+    let glasses = [];
+</script>
+
 <head>
     <!-- basic -->
     <meta charset="utf-8">
@@ -43,20 +55,21 @@
         <div class="header">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+                    <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col logo_section">
                         <div class="full">
                             <div class="center-desk">
                                 <div class="logo">
-                                    <a href="index.html"><img src="images/logo.png" alt="#" width=120px; height=120px;/></a>
+                                    <a href="index.html"><img src="images/logo.png" alt="#" width=120px; height=120px; /></a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
-                        <nav class="navigation navbar navbar-expand-md navbar-dark ">
+                    <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11">
+                        <nav style="width: 100% !important;" class="navigation navbar navbar-expand-md navbar-dark">
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                         </button>
+                            <p style="padding-right: 30%;" id="admin">Welcome Admin</p>
                             <div class="collapse navbar-collapse" id="navbarsExample04">
                                 <ul class="navbar-nav mr-auto">
                                     <li class="nav-item">
@@ -75,7 +88,7 @@
                                         <a class="nav-link" href="adminDelete.html">Delete </a>
                                     </li>
                                     <li class="nav-item d_none login_btn">
-                                        <a class="nav-link" href="login.html">Logout</a>
+                                        <a class="nav-link" href="login.html?log=off">Logout</a>
                                     </li>
 
 
@@ -107,31 +120,31 @@
             <br>
             <label class="newLabel">ID:</label>
             <br>
-            <input class="newLabel2" type="number" name="proId" placeholder="Glass ID - the number only" required>
+            <select class="newLabel2" name="id" id="sunId"></select>
             <br><br>
             <label class="newLabel">Name:</label>
             <br>
-            <input class="newLabel2" type="text" name="name" placeholder="name" required>
+            <input class="newLabel2" type="text" name="name" id="name" required>
             <br><br>
             <label class="newLabel">Brand:</label>
             <br>
-            <input class="newLabel2" type="text" name="brand" placeholder="brand" required>
+            <input class="newLabel2" type="text" name="brand" id="brand" required>
             <br><br>
             <label class="newLabel">Description:</label>
             <br>
-            <input class="newLabel2" type="text" name="description" placeholder="Describe the glasses" required>
+            <input class="newLabel2" type="text" name="description" id="desc" placeholder="Describe the glasses" required>
             <br><br>
             <label class="newLabel">Rates:</label>
             <br>
-            <input class="newLabel2" type="int" name="rates" placeholder="The rate" required>
+            <input class="newLabel2" type="int" name="rates" id="rates" placeholder="The rate" required>
             <br><br>
             <label class="newLabel">Price (RM):</label>
             <br>
-            <input class="newLabel2" type="double" name="price" placeholder="The price" required>
+            <input class="newLabel2" type="double" name="price" id="price" placeholder="The price" required>
             <br><br>
             <label class="newLabel">Image Link:</label>
             <br>
-            <input class="newLabel2" type="text" name="img" placeholder="Image link" required>
+            <input class="newLabel2" type="text" name="img" id="img" placeholder="Image link" required>
             <br><br>
             <button class="read_more" type="submit">Update Glass</button>
             <button class="read_more" type="reset">Reset</button>
@@ -165,46 +178,92 @@
         </div>
     </footer>
     <!-- end footer -->
-    <!-- Javascript files-->
-    <script>
-        $('#updateglass').submit(function (event) {
-
-            //logs
-            event.preventDefault();
-            var formData = $(this).serialize();
-            console.log(formData); // check using console to make sure all the form data values are correctly serialized
-            let z = formData.split("&")[0];
-            console.log(z);
-            let link = "http://localhost/EyeWear/api/sunglass/" + z.split('=')[1];
-            console.log(link);
-            //put ajax
-            $.ajax({
-                type: "PUT",
-                url: link,
-                data: formData,
-                dataType: "json",
-
-
-                success: function (data, status, xhr) {
-                    if (data.rowcount > 0) {
-                        alert(data.status);
-                    } else {
-                        alert("fail " + data.message);
-                    }
-                },
-                error: function (xhr, resp, text) {
-                    alert("error " + xhr + ", " + resp + ", " + text);
-                },
-            });
-        });
-    </script>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/jquery-3.0.0.min.js"></script>
-    <!-- sidebar -->
-    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="js/custom.js"></script>
 </body>
+
+<!-- Javascript files-->
+<script src="js/jquery.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/jquery-3.0.0.min.js"></script>
+<!-- sidebar -->
+<script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="js/custom.js"></script>
+
+<script>
+    $('#admin').text('Welcome ' + user)
+
+    $('#sunId').change(function() {
+        let id = $('#sunId').val()
+        $('#name').val(glasses[id]['name']);
+        $('#brand').val(glasses[id]['brand']);
+        $('#desc').val(glasses[id]['description']);
+        $('#price').val(glasses[id]['price']);
+        $('#rates').val(glasses[id]['rates']);
+        $('#img').val(glasses[id]['img']);
+    })
+
+    let formData = {
+        table: "sunglasses",
+        where: "",
+    };
+    let form = new URLSearchParams(formData).toString()
+    console.log(form)
+    $.ajax({
+        type: "GET",
+        url: "http://localhost/EyeWear/api/records",
+        data: form,
+        dataType: "json",
+
+        success: function(data, status, xhr) {
+            let options = data.map((x, i) => {
+                let item = document.createElement("option");
+                item.innerHTML = x['id'];
+                return item;
+            });
+            glasses = data;
+            $('#sunId').append(options);
+            $('#name').val(data[0]['name']);
+            $('#brand').val(data[0]['brand']);
+            $('#desc').val(data[0]['description']);
+            $('#price').val(data[0]['price']);
+            $('#rates').val(data[0]['rates']);
+            $('#img').val(data[0]['img']);
+            console.log(data);
+        },
+        error: function(xhr, resp, text) {
+            alert("error " + xhr.error + ", " + resp + ", " + text);
+        },
+    });
+
+    $('#updateglass').submit(function(event) {
+        //logs
+        event.preventDefault();
+        var formData = $(this).serialize();
+        console.log(formData); // check using console to make sure all the form data values are correctly serialized
+        let z = formData.split("&")[0];
+        console.log(z);
+        let link = "http://localhost/EyeWear/api/sunglass/" + z.split('=')[1];
+        console.log(link);
+        //put ajax
+        $.ajax({
+            type: "PUT",
+            url: link,
+            data: formData,
+            dataType: "json",
+
+
+            success: function(data, status, xhr) {
+                if (data.rowcount > 0) {
+                    alert(data.status);
+                } else {
+                    alert("fail " + data.message);
+                }
+            },
+            error: function(xhr, resp, text) {
+                alert("error " + xhr + ", " + resp + ", " + text);
+            },
+        });
+    });
+</script>
 
 </html>

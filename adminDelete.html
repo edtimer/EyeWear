@@ -1,5 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+<script>
+    let user = sessionStorage.getItem("username");
+    let isadmin = sessionStorage.getItem("isAdmin");
+    console.log(user, isadmin);
+    if (user == null) {
+        window.location.href = 'login.html';
+    } else if (isadmin === 0) {
+        window.location.href = 'index.html';
+    }
+</script>
+
 <head>
     <!-- basic -->
     <meta charset="utf-8">
@@ -30,6 +41,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 </head>
 <!-- body -->
+
 <body class="main-layout position_head">
     <!-- loader  -->
     <div class="loader_bg">
@@ -42,20 +54,21 @@
         <div class="header">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+                    <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col logo_section">
                         <div class="full">
                             <div class="center-desk">
                                 <div class="logo">
-                                    <a href="index.html"><img src="images/logo.png" alt="#" width=120px; height=120px;/></a>
+                                    <a href="index.html"><img src="images/logo.png" alt="#" width=120px; height=120px; /></a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
-                        <nav class="navigation navbar navbar-expand-md navbar-dark ">
+                    <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11">
+                        <nav style="width: 100% !important;" class="navigation navbar navbar-expand-md navbar-dark">
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                         </button>
+                            <p style="padding-right: 30%;" id="admin">Welcome Admin</p>
                             <div class="collapse navbar-collapse" id="navbarsExample04">
                                 <ul class="navbar-nav mr-auto">
                                     <li class="nav-item">
@@ -74,7 +87,7 @@
                                         <a class="nav-link" href="adminDelete.html">Delete </a>
                                     </li>
                                     <li class="nav-item d_none login_btn">
-                                        <a class="nav-link" href="login.html">Logout</a>
+                                        <a class="nav-link" href="login.html?log=off">Logout</a>
                                     </li>
 
                                 </ul>
@@ -99,20 +112,18 @@
         </div>
     </div>
     <br>
+
     <body style="text-align: center;">
         <form class="newForm" id="deleteglass">
             <br>
 
-            <label class="newLabel">Glass ID: <p class="smallNote">*make sure that ID is correct*</p></label>
-            <br>
-            <input class="newLabel2" type="number" name="id" placeholder="Glass ID" required>
+            <label class="newLabel">Glass ID:
+            <select class="newLabel2" id="sunId"></select>
             <br><br>
             <button class="read_more" type="submit">Delete Glass</button>
 
             <br><br>
         </form>
-    </body>
-    <br><br>
     <!--  footer -->
     <footer>
         <div class="footer">
@@ -139,39 +150,9 @@
         </div>
     </footer>
     <!-- end footer -->
+</body>
+
     <!-- Javascript files-->
-    <script>
-        $('#deleteglass').submit(function (event) {
-
-            //logs
-            event.preventDefault();
-            var formData = $(this).serialize();
-            console.log(formData); // check using console to make sure all the form data values are correctly serialized
-            let z = formData.split("&")[0];
-            console.log(z);
-            let a = "http://localhost/EyeWear/api/sunglass/" + z.split('=')[1];
-            console.log(a);
-            //put ajax
-            $.ajax({
-                type: "DELETE",
-                url: a,
-                data: formData,
-                dataType: "json",
-
-                success: function (data, status, xhr) {
-                    if (data.rowcount > 0) {
-                        alert(data.status);
-                    } else {
-                        alert("fail " + data.message);
-                    }
-                },
-                error: function (xhr, resp, text) {
-                    alert("error " + xhr + ", " + resp + ", " + text);
-                },
-            });
-        });
-
-    </script>
     <script src="js/jquery.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
@@ -179,5 +160,60 @@
     <!-- sidebar -->
     <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="js/custom.js"></script>
-</body>
+
+    <script>
+    $('#admin').text('Welcome ' + user)
+    let formData = {
+        table: "sunglasses",
+        where: "",
+    };
+    let form = new URLSearchParams(formData).toString()
+    console.log(form)
+    $.ajax({
+        type: "GET",
+        url: "http://localhost/EyeWear/api/records",
+        data: form,
+        dataType: "json",
+
+        success: function(data, status, xhr) {
+            let options = data.map((x, i) => {
+                let item = document.createElement("option");
+                item.innerHTML = x['id'];
+                return item;
+            });
+            $('#sunId').append(options);
+            console.log(data);
+        },
+        error: function(xhr, resp, text) {
+            alert("error " + xhr.error + ", " + resp + ", " + text);
+        },
+    });
+    
+        $('#deleteglass').submit(function(event) {
+
+            //logs
+            event.preventDefault();
+            let sunId = $('#sunId').val()
+            console.log(sunId);
+            let a = "http://localhost/EyeWear/api/sunglass/" + sunId;
+            console.log(a);
+            //put ajax
+            $.ajax({
+                type: "DELETE",
+                url: a,
+                dataType: "json",
+
+                success: function(data, status, xhr) {
+                    if (data.rowcount > 0) {
+                        alert(data.status);
+                    } else {
+                        alert("fail " + data.message);
+                    }
+                },
+                error: function(xhr, resp, text) {
+                    alert("error " + xhr + ", " + resp + ", " + text);
+                },
+            });
+        });
+    </script>
 </html>

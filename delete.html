@@ -1,5 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+<script>
+    let user = sessionStorage.getItem("username");
+    let isadmin = sessionStorage.getItem("isAdmin");
+    console.log(user, isadmin);
+    if (user == null) {
+        window.location.href = 'login.html';
+    } else if (isadmin === 1) {
+        window.location.href = 'adminHome.html';
+    }
+</script>
 
 <head>
     <!-- basic -->
@@ -25,8 +35,7 @@
     <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
     <!-- Tweaks for older IEs-->
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
-        media="screen">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -45,23 +54,21 @@
         <div class="header">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+                    <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col logo_section">
                         <div class="full">
                             <div class="center-desk">
                                 <div class="logo">
-                                    <a href="index.html"><img src="images/logo.png" alt="#" width=120px;
-                                            height=120px; /></a>
+                                    <a href="index.html"><img src="images/logo.png" alt="#" width=120px; height=120px; /></a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
-                        <nav class="navigation navbar navbar-expand-md navbar-dark ">
-                            <button class="navbar-toggler" type="button" data-toggle="collapse"
-                                data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
-                                aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
+                    <div class="col-xl-11 col-lg-11 col-md-11 col-sm-11">
+                        <nav style="width: 100% !important;" class="navigation navbar navbar-expand-md navbar-dark">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                        </button>
+                            <p style="padding-right: 10%;" id="user">Welcome User</p>
                             <div class="collapse navbar-collapse" id="navbarsExample04">
                                 <ul class="navbar-nav mr-auto">
                                     <li class="nav-item ">
@@ -86,7 +93,7 @@
                                         <a class="nav-link" href="delete.html">Delete </a>
                                     </li>
                                     <li class="nav-item d_none login_btn">
-                                        <a class="nav-link" href="login.html">Logout</a>
+                                        <a class="nav-link" href="login.html?log=off">Logout</a>
                                     </li>
 
                                 </ul>
@@ -116,9 +123,9 @@
         <form class="newForm" id="deleteorder">
             <br>
 
-            <label class="newLabel">Order ID: <p class="smallNote">*to delete the order*</p></label>
+            <label class="newLabel">Order ID:</label>
             <br>
-            <input class="newLabel2" type="text" id="id" name="id" placeholder="Order ID" required>
+            <select class="newLabel2" name="orderId" id="orderId"></select>
             <br><br>
             <button class="read_more" type="submit">Delete Order</button>
 
@@ -135,8 +142,8 @@
                         <ul class="location_icon">
                             <li><a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i></a><br> Location</li>
                             <li><a href="#"><i class="fa fa-phone" aria-hidden="true"></i></a><br> +966544984525</li>
-                            <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a><br>
-                                EyeWearCo@gmail.com</li>
+                            <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a><br> EyeWearCo@gmail.com
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -153,46 +160,75 @@
         </div>
     </footer>
     <!-- end footer -->
-    <!-- Javascript files-->
-    <script>
-        $('#deleteorder').submit(function (event) {
-
-            //logs
-            event.preventDefault();
-            var formData = $(this).serialize();
-            console.log(formData); // check using console to make sure all the form data values are correctly serialized
-            let z = formData.split("&")[0];
-            console.log(z);
-            let a = "http://localhost/EyeWear/api/order/" + z.split('=')[1];
-            console.log(a);
-            //put ajax
-            $.ajax({
-                type: "DELETE",
-                url: a,
-                data: formData,
-                dataType: "json",
-
-                success: function (data, status, xhr) {
-                    if (data.rowcount > 0) {
-                        alert(data.status);
-                    } else {
-                        alert("fail " + data.message);
-                    }
-                },
-                error: function (xhr, resp, text) {
-                    alert("error " + xhr + ", " + resp + ", " + text);
-                },
-            });
-        });
-
-    </script>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/jquery-3.0.0.min.js"></script>
-    <!-- sidebar -->
-    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="js/custom.js"></script>
 </body>
+
+<!-- Javascript files-->
+<script src="js/jquery.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/jquery-3.0.0.min.js"></script>
+<!-- sidebar -->
+<script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="js/custom.js"></script>
+<script>
+    $('#user').text('Welcome ' + user)
+
+    let userId = sessionStorage.getItem("userId");
+
+    let orders = []
+    let formData = {
+        table: "orders",
+        where: " where userId='" + userId + "'",
+    };
+    let form = new URLSearchParams(formData).toString()
+    console.log(form)
+    $.ajax({
+        type: "GET",
+        url: "http://localhost/EyeWear/api/records",
+        data: form,
+        dataType: "json",
+
+        success: function(data, status, xhr) {
+            let options = data.map((x, i) => {
+                let item = document.createElement("option");
+                item.innerHTML = x['id'];
+                return item;
+            });
+            orders = data
+            console.log(data);
+            $('#orderId').append(options);
+        },
+        error: function(xhr, resp, text) {
+            alert("error " + xhr.error + ", " + resp + ", " + text);
+        },
+    });
+
+    $('#deleteorder').submit(function(event) {
+        event.preventDefault();
+        var formData = $(this).serialize();
+        console.log(formData); // check using console to make sure all the form data values are correctly serialized
+        let orderId = $('#orderId').val()
+        let a = "http://localhost/EyeWear/api/order/" + orderId;
+        console.log(a);
+        //put ajax
+        $.ajax({
+            type: "DELETE",
+            url: a,
+            data: formData,
+            dataType: "json",
+
+            success: function(data, status, xhr) {
+                if (data.rowcount > 0) {
+                    alert(data.status);
+                } else {
+                    alert("fail " + data.message);
+                }
+            },
+            error: function(xhr, resp, text) {
+                alert("error " + xhr + ", " + resp + ", " + text);
+            },
+        });
+    });
+</script>
 
 </html>
