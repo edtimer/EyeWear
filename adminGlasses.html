@@ -210,7 +210,7 @@
     console.log(form)
     $.ajax({
         type: "GET",
-        url: "http://localhost/EyeWear/api/records",
+        url: "https://oyster-app-nicqy.ondigitalocean.app/EyeWear/api/records",
         data: form,
         dataType: "json",
 
@@ -242,7 +242,7 @@
         console.log(formData); // check using console to make sure all the form data values are correctly serialized
         let z = formData.split("&")[0];
         console.log(z);
-        let link = "http://localhost/EyeWear/api/sunglass/" + z.split('=')[1];
+        let link = "https://oyster-app-nicqy.ondigitalocean.app/EyeWear/api/sunglass/" + z.split('=')[1];
         console.log(link);
         //put ajax
         $.ajax({
