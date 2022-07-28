@@ -2,10 +2,11 @@
 class db
 {
     // Properties
-    private $host = 'localhost';
-    private $user = 'root';
-    private $password = '';
-    private $dbname = 'eyewear';
+    private $host = 'db-mysql-nyc3-61282-do-user-4807877-0.b.db.ondigitalocean.com';
+    private $user = 'doadmin';
+    private $password = 'AVNS_UyccxgOPJTkiEGe5Dxe';
+    private $dbname = 'defaultdb';
+    private $port='25060';
 
     // Connect
     public function connect()
