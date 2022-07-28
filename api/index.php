@@ -9,8 +9,8 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 // use Selective\BasePath\BasePathMiddleware;
 use Slim\Factory\AppFactory;
 
-require __DIR__ . '/vendor/autoload.php';
-require __DIR__ . '/config/db.php';
+require '../api/vendor/autoload.php';
+require '../api/config/db.php';
 
 
 $app = new \Slim\App;
