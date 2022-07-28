@@ -2,10 +2,10 @@
 class db
 {
     // Properties
-    private $host = 'eu-cdbr-west-03.cleardb.net';
-    private $user = 'b1d147da8a3466';
-    private $password = '6bed2433';
-    private $dbname = 'heroku_b2d687aa583590a';
+    private $host = 'localhost';
+    private $user = 'root';
+    private $password = '';
+    private $dbname = 'eyewear';
 
     // Connect
     public function connect()
@@ -16,4 +16,3 @@ class db
         return $dbConnection;
     }
 }
-
