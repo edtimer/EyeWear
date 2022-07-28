@@ -187,7 +187,7 @@
     console.log(form)
     $.ajax({
         type: "GET",
-        url: "https://oyster-app-nicqy.ondigitalocean.app/EyeWear/api/records",
+        url: "https://oyster-app-nicqy.ondigitalocean.app/api/records",
         data: form,
         dataType: "json",
 
@@ -211,7 +211,7 @@
         var formData = $(this).serialize();
         console.log(formData); // check using console to make sure all the form data values are correctly serialized
         let orderId = $('#orderId').val()
-        let a = "https://oyster-app-nicqy.ondigitalocean.app/EyeWear/api/order/" + orderId;
+        let a = "https://oyster-app-nicqy.ondigitalocean.app/api/order/" + orderId;
         console.log(a);
         //put ajax
         $.ajax({

@@ -185,7 +185,7 @@
     console.log(form)
     $.ajax({
         type: "GET",
-        url: "https://oyster-app-nicqy.ondigitalocean.app/EyeWear/api/records",
+        url: "https://oyster-app-nicqy.ondigitalocean.app/api/records",
         data: form,
         dataType: "json",
 
@@ -209,7 +209,7 @@
         event.preventDefault();
         let sunId = $('#sunId').val()
         console.log(sunId);
-        let a = "https://oyster-app-nicqy.ondigitalocean.app/EyeWear/api/sunglass/" + sunId;
+        let a = "https://oyster-app-nicqy.ondigitalocean.app/api/sunglass/" + sunId;
         console.log(a);
         //put ajax
         $.ajax({
