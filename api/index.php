@@ -1,5 +1,8 @@
 <?php
-
+header('Access-Control-Allow-Origin:*');
+$config = ['settings' => [
+    'addContentLengthHeader' => false,
+]];
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
